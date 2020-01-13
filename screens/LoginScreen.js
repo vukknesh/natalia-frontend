@@ -10,6 +10,7 @@ import {
   Image
 } from "react-native";
 import logo from "../assets/logobranca.png";
+
 import { LinearGradient } from "expo-linear-gradient";
 import { useDispatch } from "react-redux";
 
@@ -84,7 +85,7 @@ const LoginScreen = props => {
     setIsLoading(true);
     try {
       await dispatch(action);
-      props.navigation.navigate("Profile");
+      props.navigation.navigate("Perfil");
     } catch (err) {
       setError(err.message);
       setIsLoading(false);
@@ -109,7 +110,7 @@ const LoginScreen = props => {
       keyboardVerticalOffset={0}
       style={styles.screen}
     >
-      <LinearGradient colors={["#ffedff", "#F7D1C6"]} style={styles.gradient}>
+      <LinearGradient colors={["#f5cab3", "#f5cabe"]} style={styles.gradient}>
         <Image style={styles.imageLogo} source={logo} />
         <Card style={styles.authContainer}>
           <ScrollView>
@@ -118,7 +119,6 @@ const LoginScreen = props => {
               label="E-Mail"
               keyboardType="email-address"
               required
-              email
               autoCapitalize="none"
               errorText="Digite um email valido."
               onInputChange={inputChangeHandler}
@@ -126,7 +126,7 @@ const LoginScreen = props => {
             />
             <Input
               id="password"
-              label="Password"
+              label="Senha"
               keyboardType="default"
               secureTextEntry
               required
@@ -141,20 +141,20 @@ const LoginScreen = props => {
                 <ActivityIndicator size="small" color={Colors.primary} />
               ) : (
                 <Button
-                  title={isSignup ? "Cadastrar" : "Login"}
+                  title={"Logar"}
                   color={Colors.primary}
                   onPress={authHandler}
                 />
               )}
             </View>
             <View style={styles.buttonContainer}>
-              <Button
+              {/* <Button
                 title={`Trocar para ${isSignup ? "Login" : "Cadastrar"}`}
                 color={Colors.accent}
                 onPress={() => {
                   setIsSignup(prevState => !prevState);
                 }}
-              />
+              /> */}
             </View>
           </ScrollView>
         </Card>
@@ -164,7 +164,12 @@ const LoginScreen = props => {
 };
 
 LoginScreen.navigationOptions = {
-  headerTitle: "Login"
+  headerTitle: "Studio Natália Secchi",
+  titleStyle: {
+    /* this only styles the title/text (font, color etc.)  */
+
+    color: "#fff"
+  }
 };
 
 const styles = StyleSheet.create({
@@ -173,7 +178,8 @@ const styles = StyleSheet.create({
   },
   imageLogo: {
     width: 150,
-    height: 150
+    height: 150,
+    borderRadius: 50
   },
   gradient: {
     flex: 1,

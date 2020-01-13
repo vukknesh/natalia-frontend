@@ -1,8 +1,4 @@
 let prod = "a";
-let api;
-if (prod == "prod") {
-  api = "http://67.207.91.188/";
-} else {
-  api = "http://localhost:8000/";
-}
+let api = "http://67.207.91.188:3333/";
+
 export default api;

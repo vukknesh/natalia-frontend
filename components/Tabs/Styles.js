@@ -1,5 +1,4 @@
 import styled from "styled-components/native";
-
 export const Container = styled.View`
   height: 100px;
   border: 1px solid black;
@@ -12,9 +11,9 @@ export const TabsContainer = styled.ScrollView.attrs({
 })``;
 
 export const TabItem = styled.View`
-  width: 100px;
+  width: 400px;
   height: 100px;
-  background: rgba(255, 255, 255, 0.2);
+  background: #ccc2b8;
   border-radius: 3px;
   margin-left: 10px;
   padding: 10px;
@@ -22,6 +21,6 @@ export const TabItem = styled.View`
 `;
 
 export const TabText = styled.Text`
-  font-size: 13px;
+  font-size: 22px;
   color: #fff;
 `;

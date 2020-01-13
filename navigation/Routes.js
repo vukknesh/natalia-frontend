@@ -11,39 +11,38 @@ import { useDispatch } from "react-redux";
 import LoginScreen from "../screens/LoginScreen";
 import StartupScreen from "../screens/StartupScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import EventoScreen from "../screens/EventoScreen";
+import AgendarAulaScreen from "../screens/AgendarAulaScreen";
 import Colors from "../constants/colors";
 import * as authActions from "../store/actions/auth";
 import Icon from "react-native-vector-icons/MaterialIcons";
 const defaultNavOptions = {
   headerStyle: {
-    backgroundColor: Platform.OS === "android" ? Colors.primary : ""
+    // backgroundColor: Platform.OS === "android" ? Colors.primary : "#534a37"
+    backgroundColor: Colors.escuro,
+    color: "white"
   },
 
-  headerTintColor: Platform.OS === "android" ? "white" : Colors.primary
+  // headerTintColor: Platform.OS === "android" ? "white" : Colors.primary
+  headerTintColor: "white"
 };
 
-const EventosNavigator = createStackNavigator(
+const ProfileNavigator = createStackNavigator(
   {
-    Eventos: EventoScreen
+    Perfil: ProfileScreen
   },
   {
     navigationOptions: {
       drawerIcon: drawerConfig => (
-        <Icon
-          name={Platform.OS === "android" ? "schedule" : "schedule"}
-          size={23}
-          color={drawerConfig.tintColor}
-        />
+        <Icon name="person" size={23} color={drawerConfig.tintColor} />
       )
     },
     defaultNavigationOptions: defaultNavOptions
   }
 );
 
-const ProfileNavigator = createStackNavigator(
+const AgendarAulaNavigator = createStackNavigator(
   {
-    Profile: ProfileScreen
+    AgendarAula: AgendarAulaScreen
   },
   {
     navigationOptions: {
@@ -57,8 +56,8 @@ const ProfileNavigator = createStackNavigator(
 
 const Routes = createDrawerNavigator(
   {
-    Profile: ProfileNavigator,
-    Eventos: EventosNavigator
+    Perfil: ProfileNavigator,
+    AgendarAula: AgendarAulaNavigator
   },
   {
     contentOptions: {
