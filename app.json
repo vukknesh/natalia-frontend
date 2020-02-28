@@ -5,7 +5,7 @@
     "privacy": "public",
     "sdkVersion": "34.0.0",
     "platforms": ["ios", "android"],
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/logooriginal.png",
     "splash": {
@@ -25,7 +25,7 @@
     "android": {
       "package": "www.nataliasecchi.com.br.studio_natalia_secchi",
       "permissions": [],
-      "versionCode": 1
+      "versionCode": 2
     }
   }
 }

@@ -56,8 +56,6 @@ const AgendarAulaScreen = props => {
     });
   }, [dispatch, loadEventos]);
   const onDesmarcar = id => {
-    console.log(id, "id");
-    console.log(typeof id, "type id");
     setIsLoading(true);
     try {
       dispatch(eventosActions.updateEvento(id)).then(
@@ -66,13 +64,15 @@ const AgendarAulaScreen = props => {
         }, 1000)
       );
     } catch (err) {
-      console.log(err.message);
       setError(err.message);
       setIsLoading(false);
     }
 
     setIsLoading(false);
   };
+  const n = Date.now();
+  console.log(moment.utc(n).format("DD/MM/YYYY HH:mm:ss"), "date utc");
+  console.log(moment(n).format("DD/MM/YYYY HH:mm:ss"), "date now");
   return (
     <View style={styles.screen}>
       {isLoading ? (
@@ -128,15 +128,17 @@ const AgendarAulaScreen = props => {
           </View>
 
           <SwipeListView
+            onRefresh={() => loadEventos()}
+            refreshing={isRefreshing}
             useFlatList={true}
             data={eventos}
             renderItem={(rowData, rowMap) => (
               <View style={styles.standaloneRowBack}>
                 <Text style={{ color: Colors.secondary }}>
-                  {moment(rowData.item.starting_date).format("DD/MM")} às{" "}
-                  {moment(rowData.item.starting_date).format("HH:mm:ss")}
+                  {moment.utc(rowData.item.starting_date).format("DD/MM")} às{" "}
+                  {moment.utc(rowData.item.starting_date).format("HH:mm:ss")}
                 </Text>
-                {rowData.item.bonus && (
+                {rowData.item.bonus && !rowData.item.desmarcado && (
                   <Image
                     style={{ width: 20, height: 20, tintColor: "white" }}
                     source={bonus}
@@ -152,10 +154,6 @@ const AgendarAulaScreen = props => {
                 <TouchableOpacity
                   style={[styles.backRightBtn, styles.backRightBtnRight]}
                   onPress={() => {
-                    if (rowData.item.desmarcado) {
-                      alert("Aula desmarcada!");
-                      return;
-                    }
                     onDesmarcar(rowData.item.id);
                   }}
                 >

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getCurrentProfile } from "./profiles";
 export const DELETE_EVENTO = "DELETE_EVENTO";
 export const CREATE_EVENTO = "CREATE_EVENTO";
 export const UPDATE_EVENTO = "UPDATE_EVENTO";
@@ -9,7 +10,6 @@ export const fetchEventos = () => {
     // any async code you want!
     const token = getState().auth.token;
     const user_id = getState().auth.user?.id;
-    console.log(user_id, "useri");
     const config = {
       headers: {
         "Content-Type": "application/json"
@@ -18,8 +18,6 @@ export const fetchEventos = () => {
     if (token) {
       config.headers["Authorization"] = `Token ${token}`;
     }
-    console.log(`config`, config);
-    console.log(`token`, token);
     axios
       .post("http://67.207.91.188:3333/api/eventos/", { user_id }, config)
       .then(res => {
@@ -30,7 +28,6 @@ export const fetchEventos = () => {
       })
       .catch(err => {
         alert(err.response?.data);
-        console.log(err.response, "err");
       });
   };
 };
@@ -55,6 +52,7 @@ export const deleteEvento = eventoId => {
 export const updateEvento = id => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
+    const my_id = getState().auth.myprofile?.id;
 
     const config = {
       headers: {
@@ -72,10 +70,10 @@ export const updateEvento = id => {
       )
       .then(res => {
         alert("Aula desmarcada com sucesso!");
+        dispatch(getCurrentProfile(my_id));
       })
       .catch(err => {
         alert(err.response.data.message);
-        console.log(err.response?.data?.message, "err");
       });
 
     //   const response = await fetch(

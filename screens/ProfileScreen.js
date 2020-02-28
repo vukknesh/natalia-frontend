@@ -7,12 +7,10 @@ import PerfilInfo from "../components/PerfilInfo";
 import LogoTopo from "../components/LogoTopo";
 import { View, StyleSheet, Platform } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import * as eventosActions from "../store/actions/eventos";
-import * as authActions from "../store/actions/auth";
+
 const ProfileScreen = props => {
   const myprofile = useSelector(state => state.auth.myprofile);
   const user = useSelector(state => state.auth.user);
-  const dispatch = useDispatch();
 
   return (
     <View style={styles.container}>

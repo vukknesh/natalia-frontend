@@ -13,18 +13,27 @@ import api from "../api";
 //get current profile
 
 export const getCurrentProfile = id => (dispatch, getState) => {
-  dispatch(setProfileLoading);
+  const token = getState().auth.token;
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+  if (token) {
+    config.headers["Authorization"] = `Token ${token}`;
+  }
   axios
     .get(api + `api/profiles/${id}/`)
-    .then(res =>
+    .then(res => {
+      console.log(res.data, "res.dataa");
       dispatch({
         type: GET_PROFILE,
         payload: res.data
-      })
-    )
+      });
+    })
     .catch(err =>
       dispatch({
-        type: GET_PROFILE,
+        type: GET_ERRORS,
         payload: {}
       })
     );
@@ -89,12 +98,8 @@ export const updateProfile = (profileData, id, token) => dispatch => {
     );
 };
 // update profile
-export const updateProfileEspecies = (
-  especies,
-  id,
-  token,
-  history
-) => dispatch => {
+export const updateProfileEspecies = (especies, id) => (dispatch, getState) => {
+  const token = getState().auth.token;
   const config = {
     headers: {
       "Content-Type": "application/json"
